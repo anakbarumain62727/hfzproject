@@ -15,14 +15,30 @@
       height: 100vh;
       margin: 0;
     }
+
     #text span {
       display: inline-block;
       width: 1em;
     }
+
+    #cursor {
+      display: inline-block;
+      width: 1em;
+      animation: blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+      50.01%, 100% {
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="text"></div>
+  <div id="text"></div><span id="cursor">_</span>
 
   <script>
     const targetText = "hafidz";
