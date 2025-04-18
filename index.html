@@ -2,31 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hafidz Reveal Dramatic</title>
+  <title>Hafidz Aljauzy Text Animation</title>
   <style>
     body {
       background-color: #111;
       color: #0f0;
       font-family: monospace;
-      font-size: 6em;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
-
+    #animation-container {
+      font-size: 6em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    #container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #text {
+      display: flex;
+    }
     #text span {
       display: inline-block;
-      width: 1em;
     }
-
     #cursor {
       display: inline-block;
-      width: 1em;
       animation: blink 1s steps(1) infinite;
     }
-
     @keyframes blink {
       0%, 50% {
         opacity: 1;
@@ -35,48 +46,96 @@
         opacity: 0;
       }
     }
+    .channel-button {
+      background-color: #000;
+      color: #0f0;
+      border: 2px solid #0f0;
+      border-radius: 20px;
+      padding: 12px 24px;
+      font-family: monospace;
+      font-size: 1.2em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .channel-button:hover {
+      background-color: #0f0;
+      color: #000;
+    }
   </style>
 </head>
 <body>
-  <div id="text"></div><span id="cursor" style="visibility: hidden;">_</span>
-
+  <div id="animation-container">
+    <div id="container">
+      <div id="text"></div>
+      <span id="cursor">_</span>
+    </div>
+  </div>
+  <a href="https://www.youtube.com/channel/UCWSVGmhtDNg2pTW6B6MwOrg" target="_blank" class="channel-button">Visit My Channel</a>
+  
   <script>
-    const targetText = "hafidz";
+    const words = ["hafidz", "aljauzy"];
     const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
     const textContainer = document.getElementById("text");
     const cursor = document.getElementById("cursor");
-
-    const spans = targetText.split('').map(() => {
-      const span = document.createElement('span');
-      span.textContent = " ";
-      textContainer.appendChild(span);
-      return span;
-    });
-
-    function revealChar(index) {
-      let elapsed = 0;
-      const duration = 666; // durasi animasi per huruf
-      const intervalTime = 50;
-
-      const interval = setInterval(() => {
-        spans[index].textContent = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-        elapsed += intervalTime;
-
-        if (elapsed >= duration) {
-          clearInterval(interval);
-          spans[index].textContent = targetText[index];
-
-          if (index + 1 < targetText.length) {
-            setTimeout(() => revealChar(index + 1), 0);
-          } else {
-            // Langsung tampilkan cursor setelah huruf terakhir muncul
-            cursor.style.visibility = 'visible';
+    let currentWordIndex = 0;
+    
+    // Function to reveal characters one by one
+    function revealWord(word) {
+      textContainer.innerHTML = '';
+      const spans = [];
+      
+      // Create spans for each character
+      for (let i = 0; i < word.length; i++) {
+        const span = document.createElement('span');
+        span.textContent = " ";
+        textContainer.appendChild(span);
+        spans.push(span);
+      }
+      
+      function revealChar(index) {
+        let elapsed = 0;
+        const duration = 666; // Animation duration per character
+        const intervalTime = 50;
+        const interval = setInterval(() => {
+          spans[index].textContent = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+          elapsed += intervalTime;
+          if (elapsed >= duration) {
+            clearInterval(interval);
+            spans[index].textContent = word[index];
+            if (index + 1 < word.length) {
+              setTimeout(() => revealChar(index + 1), 200); // Delay between characters
+            } else {
+              // Wait 5 seconds after the word is fully revealed, then start deleting
+              setTimeout(() => deleteWord(word, spans), 5000);
+            }
           }
-        }
-      }, intervalTime);
+        }, intervalTime);
+      }
+      
+      revealChar(0);
     }
-
-    revealChar(0);
+    
+    // Function to delete characters one by one
+    function deleteWord(word, spans) {
+      function deleteChar(index) {
+        spans[index].textContent = '';
+        if (index > 0) {
+          setTimeout(() => deleteChar(index - 1), 200); // Delete from right to left
+        } else {
+          // After deletion completed, switch to the next word
+          currentWordIndex = (currentWordIndex + 1) % words.length;
+          setTimeout(() => revealWord(words[currentWordIndex]), 1000);
+        }
+      }
+      
+      deleteChar(word.length - 1);
+    }
+    
+    // Start the animation
+    setTimeout(() => {
+      revealWord(words[currentWordIndex]);
+    }, 500);
   </script>
 </body>
 </html>
