@@ -82,12 +82,13 @@
 
     function eraseText(targetText, onComplete) {
       const spans = textContainer.getElementsByTagName('span');
-      let index = targetText.length - 2; // Mulai menghapus dari huruf sebelum underscore (_)
+
+      let index = targetText.length - 1;
       const intervalTime = 100;
 
       const interval = setInterval(() => {
-        if (index >= 0) {
-          spans[index].textContent = " "; // Menghapus karakter satu per satu
+        spans[index].textContent = " ";
+        if (index > 0) {
           index--;
         } else {
           clearInterval(interval);
@@ -101,14 +102,11 @@
       revealText(texts[currentTextIndex], () => {
         setTimeout(() => {
           eraseText(texts[currentTextIndex], () => {
-            // Setelah selesai menghapus, tetap biarkan underscore (_) tetap ada
-            setTimeout(() => {
-              // Ganti teks setelah menghapus dan tunggu 5 detik sebelum melanjutkan
-              currentTextIndex = (currentTextIndex + 1) % texts.length;
-              setTimeout(cycleText, 5000); // Delay sebelum pergantian teks
-            }, 1000); // Delay 1 detik setelah selesai menghapus sebelum beralih ke teks berikutnya
+            // After erasing, switch text
+            currentTextIndex = (currentTextIndex + 1) % texts.length;
+            setTimeout(cycleText, 5000); // Delay before switching
           });
-        }, 5000); // Delay 5 detik setelah teks muncul sebelum mulai menghapus
+        }, 5000); // After 5 seconds, start erasing
       });
     }
 
