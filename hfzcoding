@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hafidz Reveal Dramatic</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: monospace;
+      font-size: 6em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #text span {
+      display: inline-block;
+      width: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="text"></div>
+
+  <script>
+    const targetText = "hafidz";
+    const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
+    const textContainer = document.getElementById("text");
+
+    const spans = targetText.split('').map(() => {
+      const span = document.createElement('span');
+      span.textContent = " ";
+      textContainer.appendChild(span);
+      return span;
+    });
+
+    function revealChar(index) {
+      let elapsed = 0;
+      const duration = 666; // sekitar 4 detik total dibagi 6 huruf
+      const intervalTime = 50;
+
+      const interval = setInterval(() => {
+        spans[index].textContent = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+        elapsed += intervalTime;
+
+        if (elapsed >= duration) {
+          clearInterval(interval);
+          spans[index].textContent = targetText[index];
+
+          if (index + 1 < targetText.length) {
+            setTimeout(() => revealChar(index + 1), 0);
+          }
+        }
+      }, intervalTime);
+    }
+
+    revealChar(0);
+  </script>
+</body>
+</html>
