@@ -33,7 +33,7 @@
     body {
       background: var(--bg-color);
       color: var(--text-color);
-      font-family: 'Courier New', monospace;
+      font-family: sans-serif; /* Changed to basic sans-serif font */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -89,7 +89,6 @@
       align-items: center;
       margin-bottom: 40px;
       position: relative;
-      /* Removed text-shadow */
     }
 
     #container {
@@ -100,8 +99,9 @@
 
     #text {
       display: flex;
-      font-weight: bold;
+      font-weight: normal; /* Changed from bold to normal */
       letter-spacing: 0.05em;
+      font-family: sans-serif; /* Basic sans-serif font */
     }
 
     #text span {
@@ -172,7 +172,7 @@
       text-align: center;
       font-size: 0.8em;
       color: var(--footer-text); /* Uses adaptive color */
-      font-family: 'Courier New', monospace;
+      font-family: sans-serif; /* Changed to match the basic font */
       padding: 10px;
       transition: color 0.5s ease;
     }
@@ -189,9 +189,9 @@
   </div>
   
   <a href="https://www.youtube.com/channel/UCWSVGmhtDNg2pTW6B6MwOrg" target="_blank" class="channel-button">Visit My Channel</a>
-  <a href="https://colab.research.google.com/drive/1rPXo4F-NfFxdRuwcwDaKetNMhEXeDjnQ?authuser=1#scrollTo=BsfWbupqYJHJ" target="_blank" class="channel-button">AI Video Translation</a>
+  <a href="https://colab.research.google.com/drive/18CsQe_nq7pVGtbYHuodvsng1JBA6a8SK?authuser=1#scrollTo=BsfWbupqYJHJ" target="_blank" class="channel-button">AI Video Translation</a>
   
-  <div id="copyright">© 2025 hfzproject. All rights reserved. Reproduction or distribution of any part of this content without prior written permission is strictly prohibited.</div>
+  <div id="copyright">© 2025 hfzproject. All rights reserved.</div>
   
   <script>
     // Theme toggle functionality
@@ -208,7 +208,7 @@
     });
     
     // Text animation
-    const words = ["Hafidz", "Aljauzy"]; // Changed to capitalize first letters
+    const words = ["Hafidz", "Aljauzy"]; 
     const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
     const textContainer = document.getElementById("text");
     const cursor = document.getElementById("cursor");
