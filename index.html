@@ -22,7 +22,7 @@
     }
 
     #cursor {
-      display: none;
+      display: inline-block;
       width: 1em;
       animation: blink 1s steps(1) infinite;
     }
@@ -38,7 +38,7 @@
   </style>
 </head>
 <body>
-  <div id="text"></div><span id="cursor">_</span>
+  <div id="text"></div><span id="cursor" style="visibility: hidden;">_</span>
 
   <script>
     const targetText = "hafidz";
@@ -69,8 +69,8 @@
           if (index + 1 < targetText.length) {
             setTimeout(() => revealChar(index + 1), 0);
           } else {
-            // Tampilkan cursor setelah semua huruf selesai
-            cursor.style.display = 'inline-block';
+            // Langsung tampilkan cursor setelah huruf terakhir muncul
+            cursor.style.visibility = 'visible';
           }
         }
       }, intervalTime);
