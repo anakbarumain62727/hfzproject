@@ -22,7 +22,7 @@
     }
 
     #cursor {
-      display: inline-block;
+      display: none;
       width: 1em;
       animation: blink 1s steps(1) infinite;
     }
@@ -44,6 +44,7 @@
     const targetText = "hafidz";
     const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
     const textContainer = document.getElementById("text");
+    const cursor = document.getElementById("cursor");
 
     const spans = targetText.split('').map(() => {
       const span = document.createElement('span');
@@ -54,7 +55,7 @@
 
     function revealChar(index) {
       let elapsed = 0;
-      const duration = 666; // sekitar 4 detik total dibagi 6 huruf
+      const duration = 666; // durasi animasi per huruf
       const intervalTime = 50;
 
       const interval = setInterval(() => {
@@ -67,6 +68,9 @@
 
           if (index + 1 < targetText.length) {
             setTimeout(() => revealChar(index + 1), 0);
+          } else {
+            // Tampilkan cursor setelah semua huruf selesai
+            cursor.style.display = 'inline-block';
           }
         }
       }, intervalTime);
