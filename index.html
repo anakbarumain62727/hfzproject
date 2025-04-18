@@ -8,26 +8,26 @@
       /* Dark theme (default) */
       --bg-color: linear-gradient(135deg, #0f0f11 0%, #1a1a20 100%);
       --text-color: #00cc00;
-      --text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
       --button-bg: rgba(0, 0, 0, 0.6);
       --button-text: #00cc00;
       --button-border: #00cc00;
       --button-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
       --button-hover-bg: #00cc00;
       --button-hover-text: #000;
+      --footer-text: #ffffff; /* Footer text color for dark mode */
     }
 
     .light-mode {
       /* Light theme */
       --bg-color: linear-gradient(135deg, #f0f0f5 0%, #e6e6f0 100%);
       --text-color: #008800;
-      --text-shadow: 0 2px 4px rgba(0, 136, 0, 0.2);
       --button-bg: #ffffff;
       --button-text: #008800;
       --button-border: #008800;
       --button-shadow: 0 2px 10px rgba(0, 136, 0, 0.15);
       --button-hover-bg: #008800;
       --button-hover-text: #ffffff;
+      --footer-text: #000000; /* Footer text color for light mode */
     }
 
     body {
@@ -88,8 +88,8 @@
       justify-content: center;
       align-items: center;
       margin-bottom: 40px;
-      text-shadow: var(--text-shadow);
       position: relative;
+      /* Removed text-shadow */
     }
 
     #container {
@@ -163,6 +163,19 @@
     .channel-button:hover::before {
       width: 100%;
     }
+    
+    #copyright {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.8em;
+      color: var(--footer-text); /* Uses adaptive color */
+      font-family: 'Courier New', monospace;
+      padding: 10px;
+      transition: color 0.5s ease;
+    }
   </style>
 </head>
 <body>
@@ -176,7 +189,9 @@
   </div>
   
   <a href="https://www.youtube.com/channel/UCWSVGmhtDNg2pTW6B6MwOrg" target="_blank" class="channel-button">Visit My Channel</a>
-  <a href="https://colab.research.google.com/drive/18CsQe_nq7pVGtbYHuodvsng1JBA6a8SK?authuser=1#scrollTo=BsfWbupqYJHJ" target="_blank" class="channel-button">AI Video Translation</a>
+  <a href="https://colab.research.google.com/drive/1rPXo4F-NfFxdRuwcwDaKetNMhEXeDjnQ?authuser=1#scrollTo=BsfWbupqYJHJ" target="_blank" class="channel-button">AI Video Translation</a>
+  
+  <div id="copyright">© 2025 hfzproject. All rights reserved. Reproduction or distribution of any part of this content without prior written permission is strictly prohibited.</div>
   
   <script>
     // Theme toggle functionality
