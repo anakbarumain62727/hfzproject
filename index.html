@@ -5,29 +5,35 @@
   <title>Hafidz Aljauzy Text Animation</title>
   <style>
     :root {
-      --bg-color: #111;
-      --text-color: #0f0;
-      --button-bg: #000;
-      --button-text: #0f0;
-      --button-border: #0f0;
-      --button-hover-bg: #0f0;
+      /* Dark theme (default) */
+      --bg-color: linear-gradient(135deg, #0f0f11 0%, #1a1a20 100%);
+      --text-color: #00cc00;
+      --text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+      --button-bg: rgba(0, 0, 0, 0.6);
+      --button-text: #00cc00;
+      --button-border: #00cc00;
+      --button-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+      --button-hover-bg: #00cc00;
       --button-hover-text: #000;
     }
 
     .light-mode {
-      --bg-color: #f5f5f5;
+      /* Light theme */
+      --bg-color: linear-gradient(135deg, #f0f0f5 0%, #e6e6f0 100%);
       --text-color: #008800;
+      --text-shadow: 0 2px 4px rgba(0, 136, 0, 0.2);
       --button-bg: #ffffff;
       --button-text: #008800;
       --button-border: #008800;
+      --button-shadow: 0 2px 10px rgba(0, 136, 0, 0.15);
       --button-hover-bg: #008800;
       --button-hover-text: #ffffff;
     }
 
     body {
-      background-color: var(--bg-color);
+      background: var(--bg-color);
       color: var(--text-color);
-      font-family: monospace;
+      font-family: 'Courier New', monospace;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -35,7 +41,22 @@
       height: 100vh;
       margin: 0;
       overflow: hidden;
-      transition: background-color 0.3s, color 0.3s;
+      transition: all 0.5s ease;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at 20% 30%, rgba(0, 255, 0, 0.03) 0%, transparent 20%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 255, 0, 0.03) 0%, transparent 20%);
+      pointer-events: none;
+      opacity: 0.5;
+      z-index: -1;
     }
 
     #theme-toggle {
@@ -43,19 +64,22 @@
       top: 20px;
       right: 20px;
       background-color: var(--button-bg);
-      color: var(--text-color);
+      color: var(--button-text);
       border: 2px solid var(--button-border);
-      border-radius: 20px;
-      padding: 8px 16px;
-      font-family: monospace;
+      border-radius: 25px;
+      padding: 8px 24px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
       font-size: 1em;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: var(--button-shadow);
     }
 
     #theme-toggle:hover {
       background-color: var(--button-hover-bg);
       color: var(--button-hover-text);
+      transform: translateY(-2px);
     }
 
     #animation-container {
@@ -64,6 +88,8 @@
       justify-content: center;
       align-items: center;
       margin-bottom: 40px;
+      text-shadow: var(--text-shadow);
+      position: relative;
     }
 
     #container {
@@ -74,10 +100,13 @@
 
     #text {
       display: flex;
+      font-weight: bold;
+      letter-spacing: 0.05em;
     }
 
     #text span {
       display: inline-block;
+      transform-origin: center;
     }
 
     #cursor {
@@ -98,18 +127,41 @@
       background-color: var(--button-bg);
       color: var(--button-text);
       border: 2px solid var(--button-border);
-      border-radius: 20px;
-      padding: 12px 24px;
-      font-family: monospace;
+      border-radius: 30px;
+      padding: 14px 32px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
       font-size: 1.2em;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.3s ease;
+      box-shadow: var(--button-shadow);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      margin-bottom: 20px; /* Add spacing between buttons */
+    }
+
+    .channel-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: var(--button-hover-bg);
+      transition: all 0.3s ease;
+      z-index: -1;
     }
 
     .channel-button:hover {
-      background-color: var(--button-hover-bg);
       color: var(--button-hover-text);
+      transform: translateY(-3px);
+      box-shadow: 0 7px 15px rgba(0, 136, 0, 0.3);
+    }
+
+    .channel-button:hover::before {
+      width: 100%;
     }
   </style>
 </head>
@@ -124,6 +176,7 @@
   </div>
   
   <a href="https://www.youtube.com/channel/UCWSVGmhtDNg2pTW6B6MwOrg" target="_blank" class="channel-button">Visit My Channel</a>
+  <a href="https://colab.research.google.com/drive/18CsQe_nq7pVGtbYHuodvsng1JBA6a8SK?authuser=1#scrollTo=BsfWbupqYJHJ" target="_blank" class="channel-button">AI Video Translation</a>
   
   <script>
     // Theme toggle functionality
@@ -140,7 +193,7 @@
     });
     
     // Text animation
-    const words = ["hafidz", "aljauzy"];
+    const words = ["Hafidz", "Aljauzy"]; // Changed to capitalize first letters
     const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
     const textContainer = document.getElementById("text");
     const cursor = document.getElementById("cursor");
@@ -155,6 +208,9 @@
       for (let i = 0; i < word.length; i++) {
         const span = document.createElement('span');
         span.textContent = " ";
+        span.style.opacity = "0";
+        span.style.transform = "translateY(20px)";
+        span.style.transition = "all 0.3s ease";
         textContainer.appendChild(span);
         spans.push(span);
       }
@@ -163,12 +219,23 @@
         let elapsed = 0;
         const duration = 666; // Animation duration per character
         const intervalTime = 50;
+        
+        spans[index].style.opacity = "1";
+        spans[index].style.transform = "translateY(0)";
+        
         const interval = setInterval(() => {
           spans[index].textContent = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
           elapsed += intervalTime;
           if (elapsed >= duration) {
             clearInterval(interval);
             spans[index].textContent = word[index];
+            
+            // Small bounce effect when character is revealed
+            spans[index].style.transform = "translateY(-5px)";
+            setTimeout(() => {
+              spans[index].style.transform = "translateY(0)";
+            }, 100);
+            
             if (index + 1 < word.length) {
               setTimeout(() => revealChar(index + 1), 200); // Delay between characters
             } else {
@@ -179,13 +246,18 @@
         }, intervalTime);
       }
       
-      revealChar(0);
+      setTimeout(() => {
+        revealChar(0);
+      }, 300);
     }
     
     // Function to delete characters one by one
     function deleteWord(word, spans) {
       function deleteChar(index) {
+        spans[index].style.opacity = "0";
+        spans[index].style.transform = "translateY(20px)";
         spans[index].textContent = '';
+        
         if (index > 0) {
           setTimeout(() => deleteChar(index - 1), 200); // Delete from right to left
         } else {
