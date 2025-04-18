@@ -4,9 +4,29 @@
   <meta charset="UTF-8">
   <title>Hafidz Aljauzy Text Animation</title>
   <style>
+    :root {
+      --bg-color: #111;
+      --text-color: #0f0;
+      --button-bg: #000;
+      --button-text: #0f0;
+      --button-border: #0f0;
+      --button-hover-bg: #0f0;
+      --button-hover-text: #000;
+    }
+
+    .light-mode {
+      --bg-color: #f5f5f5;
+      --text-color: #008800;
+      --button-bg: #ffffff;
+      --button-text: #008800;
+      --button-border: #008800;
+      --button-hover-bg: #008800;
+      --button-hover-text: #ffffff;
+    }
+
     body {
-      background-color: #111;
-      color: #0f0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       font-family: monospace;
       display: flex;
       flex-direction: column;
@@ -15,7 +35,29 @@
       height: 100vh;
       margin: 0;
       overflow: hidden;
+      transition: background-color 0.3s, color 0.3s;
     }
+
+    #theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: var(--button-bg);
+      color: var(--text-color);
+      border: 2px solid var(--button-border);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-family: monospace;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #theme-toggle:hover {
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
+    }
+
     #animation-container {
       font-size: 6em;
       display: flex;
@@ -23,21 +65,26 @@
       align-items: center;
       margin-bottom: 40px;
     }
+
     #container {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     #text {
       display: flex;
     }
+
     #text span {
       display: inline-block;
     }
+
     #cursor {
       display: inline-block;
       animation: blink 1s steps(1) infinite;
     }
+
     @keyframes blink {
       0%, 50% {
         opacity: 1;
@@ -46,10 +93,11 @@
         opacity: 0;
       }
     }
+
     .channel-button {
-      background-color: #000;
-      color: #0f0;
-      border: 2px solid #0f0;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: 2px solid var(--button-border);
       border-radius: 20px;
       padding: 12px 24px;
       font-family: monospace;
@@ -58,22 +106,40 @@
       text-decoration: none;
       transition: all 0.3s ease;
     }
+
     .channel-button:hover {
-      background-color: #0f0;
-      color: #000;
+      background-color: var(--button-hover-bg);
+      color: var(--button-hover-text);
     }
   </style>
 </head>
 <body>
+  <button id="theme-toggle">Dark</button>
+  
   <div id="animation-container">
     <div id="container">
       <div id="text"></div>
       <span id="cursor">_</span>
     </div>
   </div>
+  
   <a href="https://www.youtube.com/channel/UCWSVGmhtDNg2pTW6B6MwOrg" target="_blank" class="channel-button">Visit My Channel</a>
   
   <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light-mode');
+      if (body.classList.contains('light-mode')) {
+        themeToggle.textContent = 'Light';
+      } else {
+        themeToggle.textContent = 'Dark';
+      }
+    });
+    
+    // Text animation
     const words = ["hafidz", "aljauzy"];
     const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
     const textContainer = document.getElementById("text");
