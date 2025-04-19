@@ -17,6 +17,8 @@
       --footer-text: #ffffff; /* Footer text color for dark mode */
       --game-button-bg: rgba(0, 0, 0, 0.6);
       --game-button-border: #00cc00;
+      --panel-bg: rgba(15, 15, 18, 0.95);
+      --panel-border: #00cc00;
     }
 
     .light-mode {
@@ -32,6 +34,8 @@
       --footer-text: #000000; /* Footer text color for light mode */
       --game-button-bg: #ffffff;
       --game-button-border: #008800;
+      --panel-bg: rgba(240, 240, 245, 0.95);
+      --panel-border: #008800;
     }
 
     body {
@@ -212,6 +216,111 @@
       transition: color 0.5s ease;
     }
 
+    /* Game Selection Panel */
+    #game-selection-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 350px;
+      max-width: 90vw;
+      background: var(--panel-bg);
+      border: 2px solid var(--panel-border);
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0, 200, 0, 0.4);
+      padding: 20px;
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    #game-selection-panel.active {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 204, 0, 0.3);
+      padding-bottom: 10px;
+    }
+
+    .panel-title {
+      color: var(--text-color);
+      font-size: 1.4em;
+      margin: 0;
+      font-family: 'Courier New', monospace;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .close-btn:hover {
+      color: #ff4444;
+    }
+
+    .game-option {
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: 2px solid var(--button-border);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      font-family: 'Courier New', monospace;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .game-option:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 136, 0, 0.2);
+    }
+
+    .game-option.active {
+      background-color: rgba(0, 204, 0, 0.2);
+    }
+
+    .game-option .game-icon {
+      margin-right: 15px;
+      font-size: 1.5em;
+    }
+
+    .game-option .game-title {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .coming-soon-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(0, 204, 0, 0.3);
+      color: var(--text-color);
+      border-radius: 12px;
+      padding: 3px 8px;
+      font-size: 0.7em;
+      text-transform: uppercase;
+    }
+
     /* Game Modal Styles */
     #game-modal {
       position: fixed;
@@ -220,8 +329,8 @@
       transform: translate(-50%, -50%) scale(0.9);
       width: 400px;
       max-width: 90vw;
-      background: rgba(20, 20, 25, 0.95);
-      border: 2px solid var(--button-border);
+      background: var(--panel-bg);
+      border: 2px solid var(--panel-border);
       border-radius: 10px;
       box-shadow: 0 0 25px rgba(0, 200, 0, 0.4);
       padding: 20px;
@@ -235,35 +344,6 @@
       display: block;
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
-    }
-
-    #game-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      border-bottom: 1px solid rgba(0, 204, 0, 0.3);
-      padding-bottom: 10px;
-    }
-
-    #game-modal-title {
-      color: var(--text-color);
-      font-size: 1.4em;
-      margin: 0;
-      font-family: 'Courier New', monospace;
-    }
-
-    #close-modal {
-      background: none;
-      border: none;
-      color: var(--text-color);
-      font-size: 1.5em;
-      cursor: pointer;
-      transition: color 0.2s ease;
-    }
-
-    #close-modal:hover {
-      color: #ff4444;
     }
 
     #game-canvas-container {
@@ -285,7 +365,7 @@
       margin-top: 15px;
     }
 
-    #start-game-btn {
+    .game-btn {
       background-color: var(--button-bg);
       color: var(--button-text);
       border: 1px solid var(--button-border);
@@ -294,9 +374,10 @@
       font-family: 'Courier New', monospace;
       cursor: pointer;
       transition: all 0.2s ease;
+      margin-right: 8px;
     }
 
-    #start-game-btn:hover {
+    .game-btn:hover {
       background-color: var(--button-hover-bg);
       color: var(--button-hover-text);
     }
@@ -305,6 +386,8 @@
       font-family: 'Courier New', monospace;
       color: var(--text-color);
       font-size: 1.1em;
+      display: flex;
+      align-items: center;
     }
 
     #overlay {
@@ -354,7 +437,7 @@
 </head>
 <body>
   <div id="header-buttons">
-    <button id="game-button" title="Play Snake Game">
+    <button id="game-button" title="Play Games">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M21,6H3C1.9,6,1,6.9,1,8v8c0,1.1,0.9,2,2,2h18c1.1,0,2-0.9,2-2V8C23,6.9,22.1,6,21,6z M11,13H8v3H6v-3H3v-2h3V8h2v3h3V13z M15.5,15 c-0.83,0-1.5-0.67-1.5-1.5c0-0.83,0.67-1.5,1.5-1.5c0.83,0,1.5,0.67,1.5,1.5C17,14.33,16.33,15,15.5,15z M19.5,12 c-0.83,0-1.5-0.67-1.5-1.5c0-0.83,0.67-1.5,1.5-1.5c0.83,0,1.5,0.67,1.5,1.5C21,11.33,20.33,12,19.5,12z"/>
       </svg>
@@ -374,18 +457,43 @@
   
   <div id="copyright">© 2025 hfzproject. All rights reserved.</div>
 
-  <!-- Game Modal -->
+  <!-- Game Selection Panel -->
   <div id="overlay"></div>
+  <div id="game-selection-panel">
+    <div class="panel-header">
+      <h3 class="panel-title">Game Center</h3>
+      <button class="close-btn" id="close-selection-panel">&times;</button>
+    </div>
+    <div class="game-option" id="snake-game-option">
+      <div class="game-icon">🐍</div>
+      <div class="game-title">Snake Game</div>
+    </div>
+    <div class="game-option disabled">
+      <div class="game-icon">🎮</div>
+      <div class="game-title">Tetris</div>
+      <div class="coming-soon-badge">Coming Soon</div>
+    </div>
+    <div class="game-option disabled">
+      <div class="game-icon">🏓</div>
+      <div class="game-title">Pong</div>
+      <div class="coming-soon-badge">Coming Soon</div>
+    </div>
+  </div>
+
+  <!-- Snake Game Modal -->
   <div id="game-modal">
-    <div id="game-modal-header">
-      <h3 id="game-modal-title">Snake Game</h3>
-      <button id="close-modal">&times;</button>
+    <div class="panel-header">
+      <h3 class="panel-title">Snake Game</h3>
+      <button class="close-btn" id="close-modal">&times;</button>
     </div>
     <div id="game-canvas-container">
       <canvas id="game-canvas" width="300" height="300"></canvas>
     </div>
     <div id="game-controls">
-      <button id="start-game-btn">Start Game</button>
+      <div>
+        <button class="game-btn" id="start-game-btn">Start Game</button>
+        <button class="game-btn" id="reset-game-btn">Reset</button>
+      </div>
       <div id="game-score">Score: 0</div>
     </div>
     <div id="mobile-controls">
@@ -493,12 +601,16 @@
       revealWord(words[currentWordIndex]);
     }, 500);
 
-    // Snake Game Functionality
+    // Game Selection and Snake Game Functionality
     const gameButton = document.getElementById('game-button');
+    const gameSelectionPanel = document.getElementById('game-selection-panel');
+    const snakeGameOption = document.getElementById('snake-game-option');
     const gameModal = document.getElementById('game-modal');
     const overlay = document.getElementById('overlay');
+    const closeSelectionPanel = document.getElementById('close-selection-panel');
     const closeModal = document.getElementById('close-modal');
     const startGameBtn = document.getElementById('start-game-btn');
+    const resetGameBtn = document.getElementById('reset-game-btn');
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
     const scoreDisplay = document.getElementById('game-score');
@@ -519,10 +631,22 @@
     let gameSpeed = 150; // Milliseconds between moves
     let gameRunning = false;
 
-    // Open game modal
+    // Open game selection panel
     gameButton.addEventListener('click', () => {
-      gameModal.classList.add('active');
+      gameSelectionPanel.classList.add('active');
       overlay.style.display = 'block';
+    });
+
+    // Close game selection panel
+    closeSelectionPanel.addEventListener('click', () => {
+      gameSelectionPanel.classList.remove('active');
+      overlay.style.display = 'none';
+    });
+
+    // Open snake game when selected
+    snakeGameOption.addEventListener('click', () => {
+      gameSelectionPanel.classList.remove('active');
+      gameModal.classList.add('active');
       resetGame();
     });
 
@@ -534,6 +658,7 @@
     });
 
     overlay.addEventListener('click', () => {
+      gameSelectionPanel.classList.remove('active');
       gameModal.classList.remove('active');
       overlay.style.display = 'none';
       stopGame();
@@ -544,9 +669,14 @@
       if (gameRunning) {
         stopGame();
         resetGame();
-      } else {
-        startGame();
       }
+      startGame();
+    });
+
+    // Reset game button
+    resetGameBtn.addEventListener('click', () => {
+      stopGame();
+      resetGame();
     });
 
     // Game functions
@@ -577,17 +707,6 @@
       }
     }
 
-    function gameOver() {
-      stopGame();
-      startGameBtn.textContent = 'Try Again';
-      ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '20px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('Game Over!', canvas.width/2, canvas.height/2);
-    }
-
     function generateFood() {
       // Generate random position for food
       food = {
@@ -608,10 +727,17 @@
       // Create new head in the direction of movement
       const head = {x: snake[0].x + dx, y: snake[0].y + dy};
       
-      // Check for collisions with walls
-      if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
-        gameOver();
-        return;
+      // Handle wall wrapping (if snake hits a wall, it appears on the opposite side)
+      if (head.x < 0) {
+        head.x = gridSize - 1;
+      } else if (head.x >= gridSize) {
+        head.x = 0;
+      }
+      
+      if (head.y < 0) {
+        head.y = gridSize - 1;
+      } else if (head.y >= gridSize) {
+        head.y = 0;
       }
       
       // Check for collisions with self
@@ -643,6 +769,17 @@
       }
       
       drawGame();
+    }
+
+    function gameOver() {
+      stopGame();
+      startGameBtn.textContent = 'Try Again';
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('Game Over!', canvas.width/2, canvas.height/2);
     }
 
     function drawGame() {
