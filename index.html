@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hafidz Aljauzy Text Animation</title>
+  <title>HFZ Project</title>
   <style>
     :root {
       /* Dark theme (default) */
@@ -20,6 +20,8 @@
       --game-button-border: #00cc00;
       --panel-bg: rgba(15, 15, 18, 0.95);
       --panel-border: #00cc00;
+      --coming-soon-bg: rgba(0, 204, 0, 0.4);
+      --coming-soon-text: #00ff00;
     }
 
     .light-mode {
@@ -37,6 +39,8 @@
       --game-button-border: #008800;
       --panel-bg: rgba(240, 240, 245, 0.95);
       --panel-border: #008800;
+      --coming-soon-bg: rgba(0, 136, 0, 0.4);
+      --coming-soon-text: #00cc00;
     }
 
     body {
@@ -45,14 +49,14 @@
       font-family: sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      min-height: 100vh;
+      min-height: 100dvh;
       margin: 0;
-      overflow-x: hidden;
+      overflow: hidden;
       transition: all 0.5s ease;
       position: relative;
-      padding: 20px;
+      padding: 10px;
       box-sizing: border-box;
     }
 
@@ -72,11 +76,11 @@
 
     #header-buttons {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 10px;
+      right: 10px;
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 10px;
     }
 
     #theme-toggle {
@@ -84,10 +88,10 @@
       color: var(--button-text);
       border: 2px solid var(--button-border);
       border-radius: 25px;
-      padding: 8px 24px;
+      padding: 6px 20px;
       font-family: 'Courier New', monospace;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 0.9em;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: var(--button-shadow);
@@ -100,8 +104,8 @@
     }
 
     #game-button {
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background-color: var(--game-button-bg);
       border: 2px solid var(--game-button-border);
@@ -119,17 +123,26 @@
     }
 
     #game-button svg {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       fill: var(--button-text);
     }
 
+    #main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      gap: 2em; /* Increased gap to match the spacing in Image 1 */
+    }
+
     #animation-container {
-      font-size: clamp(3em, 10vw, 5em);
+      font-size: clamp(2em, 8vw, 4em);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 40px;
+      margin: 0;
       position: relative;
     }
 
@@ -166,10 +179,10 @@
       color: var(--button-text);
       border: 2px solid var(--button-border);
       border-radius: 30px;
-      padding: 14px 32px;
+      padding: 12px 24px;
       font-family: 'Courier New', monospace;
       font-weight: bold;
-      font-size: 1.2em;
+      font-size: clamp(0.9em, 3vw, 1.1em);
       cursor: pointer;
       text-decoration: none;
       transition: all 0.3s ease;
@@ -177,8 +190,8 @@
       position: relative;
       overflow: hidden;
       z-index: 1;
-      margin-bottom: 20px;
-      width: clamp(200px, 80vw, 300px);
+      margin-bottom: 10px;
+      width: clamp(180px, 70vw, 280px);
       text-align: center;
     }
 
@@ -205,30 +218,25 @@
     }
 
     #copyright {
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.8em;
+      font-size: clamp(0.7em, 2vw, 0.8em);
       color: var(--footer-text);
       font-family: sans-serif;
-      padding: 10px;
+      padding: 8px;
       transition: color 0.5s ease;
+      text-align: center;
     }
 
-    /* Game Selection Panel */
     #game-selection-panel {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0.9);
-      width: clamp(250px, 80vw, 350px);
+      width: clamp(220px, 80vw, 320px);
       background: var(--panel-bg);
       border: 2px solid var(--panel-border);
       border-radius: 10px;
       box-shadow: 0 0 25px rgba(0, 200, 0, 0.4);
-      padding: 20px;
+      padding: 15px;
       z-index: 1000;
       display: none;
       opacity: 0;
@@ -245,14 +253,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       border-bottom: 1px solid rgba(0, 204, 0, 0.3);
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
 
     .panel-title {
       color: var(--text-color);
-      font-size: 1.4em;
+      font-size: 1.3em;
       margin: 0;
       font-family: 'Courier New', monospace;
     }
@@ -261,7 +269,7 @@
       background: none;
       border: none;
       color: var(--text-color);
-      font-size: 1.5em;
+      font-size: 1.4em;
       cursor: pointer;
       transition: color 0.2s ease;
     }
@@ -275,8 +283,8 @@
       color: var(--button-text);
       border: 2px solid var(--button-border);
       border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
+      padding: 12px;
+      margin-bottom: 12px;
       font-family: 'Courier New', monospace;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -327,46 +335,45 @@
     }
 
     .game-option .game-icon {
-      margin-right: 15px;
-      font-size: 1.5em;
+      margin-right: 12px;
+      font-size: 1.4em;
     }
 
     .game-option .game-title {
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1em;
     }
 
     .coming-soon-badge {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: rgba(0, 204, 0, 0.3);
-      color: var(--text-color);
-      border-radius: 12px;
-      padding: 3px 8px;
-      font-size: 0.7em;
+      top: 8px;
+      right: 8px;
+      background-color: var(--coming-soon-bg);
+      color: var(--coming-soon-text);
+      border-radius: 10px;
+      padding: 3px 7px;
+      font-size: 0.65em;
       text-transform: uppercase;
     }
 
-    /* Game Modal Styles */
-    #game-modal {
+    #game-modal, #tictactoe-modal {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0.9);
-      width: clamp(280px, 90vw, 400px);
+      width: clamp(260px, 85vw, 360px);
       background: var(--panel-bg);
       border: 2px solid var(--panel-border);
       border-radius: 10px;
       box-shadow: 0 0 25px rgba(0, 200, 0, 0.4);
-      padding: 20px;
+      padding: 15px;
       z-index: 1000;
       display: none;
       opacity: 0;
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    #game-modal.active {
+    #game-modal.active, #tictactoe-modal.active {
       display: block;
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
@@ -384,7 +391,7 @@
       background-color: #111;
       border: 1px solid var(--button-border);
       width: 100%;
-      max-width: 300px;
+      max-width: 280px;
       height: auto;
       aspect-ratio: 1 / 1;
     }
@@ -392,7 +399,8 @@
     #game-controls {
       display: flex;
       justify-content: space-between;
-      margin-top: 15px;
+      align-items: center;
+      margin-top: 12px;
     }
 
     .game-btn {
@@ -400,11 +408,10 @@
       color: var(--button-text);
       border: 1px solid var(--button-border);
       border-radius: 4px;
-      padding: 8px 15px;
+      padding: 8px 14px;
       font-family: 'Courier New', monospace;
       cursor: pointer;
       transition: all 0.2s ease;
-      margin-right: 8px;
     }
 
     .game-btn:hover {
@@ -415,7 +422,7 @@
     #game-score {
       font-family: 'Courier New', monospace;
       color: var(--text-color);
-      font-size: 1.1em;
+      font-size: 1em;
       display: flex;
       align-items: center;
     }
@@ -433,14 +440,21 @@
 
     #mobile-controls {
       display: none;
-      margin-top: 15px;
+      margin-top: 10px;
       justify-content: center;
+      align-items: center;
+      /* Use CSS Grid to create a cross layout */
+      display: grid;
+      grid-template-areas: 
+        ". up ."
+        "left down right";
       gap: 10px;
-      flex-wrap: wrap;
+      width: 150px;
+      height: 100px;
     }
 
     .mobile-btn {
-      width: 60px;
+      width: 40px;
       height: 40px;
       background-color: var(--button-bg);
       color: var(--button-text);
@@ -459,70 +473,128 @@
       color: var(--button-hover-text);
     }
 
+    #btn-up {
+      grid-area: up;
+    }
+
+    #btn-down {
+      grid-area: down;
+    }
+
+    #btn-left {
+      grid-area: left;
+    }
+
+    #btn-right {
+      grid-area: right;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    #tictactoe-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .tictactoe-cell {
+      background-color: #111;
+      border: 1px solid var(--button-border);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: clamp(2em, 10vw, 3em);
+      color: var(--text-color);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .tictactoe-cell:hover {
+      background-color: rgba(0, 204, 0, 0.2);
+    }
+
+    .tictactoe-cell.disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
     @media (max-width: 768px) {
       #mobile-controls {
-        display: flex;
+        display: grid; /* Ensure grid layout is applied on mobile */
       }
 
       #header-buttons {
-        top: 10px;
-        right: 10px;
-        gap: 10px;
+        top: 8px;
+        right: 8px;
+        gap: 8px;
       }
 
       #theme-toggle {
-        padding: 6px 16px;
-        font-size: 0.9em;
+        padding: 5px 14px;
+        font-size: 0.85em;
       }
 
       #game-button {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
       }
 
       #game-button svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
       }
 
       .channel-button {
-        padding: 12px 24px;
-        font-size: 1em;
-      }
-
-      #copyright {
-        font-size: 0.7em;
-        padding: 8px;
+        padding: 10px 20px;
+        font-size: 0.95em;
       }
     }
 
     @media (max-width: 480px) {
       #animation-container {
-        margin-bottom: 20px;
+        margin: 0;
       }
 
       .channel-button {
-        margin-bottom: 15px;
+        margin-bottom: 8px;
       }
 
       #game-selection-panel {
-        padding: 15px;
+        padding: 12px;
       }
 
-      #game-modal {
-        padding: 15px;
+      #game-modal, #tictactoe-modal {
+        padding: 12px;
       }
 
       .game-option {
-        padding: 12px;
+        padding: 10px;
       }
 
       .game-option .game-icon {
         font-size: 1.2em;
+        margin-right: 10px;
       }
 
       .game-option .game-title {
-        font-size: 1em;
+        font-size: 0.95em;
+      }
+
+      #game-canvas, #tictactoe-board {
+        max-width: 240px;
+      }
+
+      .tictactoe-cell {
+        font-size: clamp(1.5em, 8vw, 2.5em);
       }
     }
   </style>
@@ -537,19 +609,22 @@
     <button id="theme-toggle">Dark</button>
   </div>
   
-  <div id="animation-container">
-    <div id="container">
-      <div id="text"></div>
-      <span id="cursor">_</span>
+  <div id="main-content">
+    <div id="animation-container">
+      <div id="container">
+        <div id="text"></div>
+        <span id="cursor">_</span>
+      </div>
+    </div>
+  
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+      <a href="https://www.youtube.com/channel/UCWSVGmhtDNg2pTW6B6MwOrg" target="_blank" class="channel-button">Visit My Channel</a>
+      <a href="https://colab.research.google.com/drive/18CsQe_nq7pVGtbYHuodvsng1JBA6a8SK?authuser=1#scrollTo=BsfWbupqYJHJ" target="_blank" class="channel-button">AI Video Translation</a>
     </div>
   </div>
   
-  <a href="https://www.youtube.com/channel/UCWSVGmhtDNg2pTW6B6MwOrg" target="_blank" class="channel-button">Visit My Channel</a>
-  <a href="https://colab.research.google.com/drive/18CsQe_nq7pVGtbYHuodvsng1JBA6a8SK?authuser=1#scrollTo=BsfWbupqYJHJ" target="_blank" class="channel-button">AI Video Translation</a>
-  
   <div id="copyright">© 2025 hfzproject. All rights reserved.</div>
 
-  <!-- Game Selection Panel -->
   <div id="overlay"></div>
   <div id="game-selection-panel">
     <div class="panel-header">
@@ -560,10 +635,9 @@
       <div class="game-icon">🐍</div>
       <div class="game-title">Snake Game</div>
     </div>
-    <div class="game-option disabled">
-      <div class="game-icon">🎮</div>
-      <div class="game-title">Coming Soon</div>
-      <div class="coming-soon-badge">Coming Soon</div>
+    <div class="game-option" id="tictactoe-game-option">
+      <div class="game-icon">❌</div>
+      <div class="game-title">Tic Tac Toe</div>
     </div>
     <div class="game-option disabled">
       <div class="game-icon">🏓</div>
@@ -572,32 +646,45 @@
     </div>
   </div>
 
-  <!-- Snake Game Modal -->
-  <div id="game-modal">
+  <div id="game-modal" data-game="snake">
     <div class="panel-header">
       <h3 class="panel-title">Snake Game</h3>
       <button class="close-btn" id="close-modal">×</button>
     </div>
     <div id="game-canvas-container">
-      <canvas id="game-canvas" width="300" height="300"></canvas>
+      <canvas id="game-canvas" width="280" height="280"></canvas>
     </div>
     <div id="game-controls">
       <div>
         <button class="game-btn" id="start-game-btn">Start Game</button>
-        <button class="game-btn" id="reset-game-btn">Reset</button>
       </div>
       <div id="game-score">Score: 0</div>
     </div>
     <div id="mobile-controls">
       <div class="mobile-btn" id="btn-up">▲</div>
-      <div class="mobile-btn" id="btn-left">◀</div>
       <div class="mobile-btn" id="btn-down">▼</div>
+      <div class="mobile-btn" id="btn-left">◀</div>
       <div class="mobile-btn" id="btn-right">▶</div>
+    </div>
+  </div>
+
+  <div id="tictactoe-modal" data-game="tictactoe">
+    <div class="panel-header">
+      <h3 class="panel-title">Tic Tac Toe</h3>
+      <button class="close-btn" id="close-modal">×</button>
+    </div>
+    <div id="game-canvas-container">
+      <div id="tictactoe-board"></div>
+    </div>
+    <div id="game-controls">
+      <div>
+        <button class="game-btn" id="tictactoe-reset-btn">New Game</button>
+      </div>
+      <div id="game-score">Player: 0 | Bot: 0</div>
     </div>
   </div>
   
   <script>
-    // Theme toggle functionality
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     
@@ -610,19 +697,16 @@
       }
     });
     
-    // Text animation
     const words = ["Hafidz", "Aljauzy"]; 
     const randomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
     const textContainer = document.getElementById("text");
     const cursor = document.getElementById("cursor");
     let currentWordIndex = 0;
     
-    // Function to reveal characters one by one
     function revealWord(word) {
       textContainer.innerHTML = '';
       const spans = [];
       
-      // Create spans for each character
       for (let i = 0; i < word.length; i++) {
         const span = document.createElement('span');
         span.textContent = " ";
@@ -635,7 +719,7 @@
       
       function revealChar(index) {
         let elapsed = 0;
-        const duration = 666; // Animation duration per character
+        const duration = 666;
         const intervalTime = 50;
         
         spans[index].style.opacity = "1";
@@ -648,16 +732,14 @@
             clearInterval(interval);
             spans[index].textContent = word[index];
             
-            // Small bounce effect when character is revealed
             spans[index].style.transform = "translateY(-5px)";
             setTimeout(() => {
               spans[index].style.transform = "translateY(0)";
             }, 100);
             
             if (index + 1 < word.length) {
-              setTimeout(() => revealChar(index + 1), 200); // Delay between characters
+              setTimeout(() => revealChar(index + 1), 200);
             } else {
-              // Wait 5 seconds after the word is fully revealed, then start deleting
               setTimeout(() => deleteWord(word, spans), 5000);
             }
           }
@@ -669,7 +751,6 @@
       }, 300);
     }
     
-    // Function to delete characters one by one
     function deleteWord(word, spans) {
       function deleteChar(index) {
         spans[index].style.opacity = "0";
@@ -677,9 +758,8 @@
         spans[index].textContent = '';
         
         if (index > 0) {
-          setTimeout(() => deleteChar(index - 1), 200); // Delete from right to left
+          setTimeout(() => deleteChar(index - 1), 200);
         } else {
-          // After deletion completed, switch to the next word
           currentWordIndex = (currentWordIndex + 1) % words.length;
           setTimeout(() => revealWord(words[currentWordIndex]), 1000);
         }
@@ -688,21 +768,48 @@
       deleteChar(word.length - 1);
     }
     
-    // Start the text animation
     setTimeout(() => {
       revealWord(words[currentWordIndex]);
     }, 500);
 
-    // Game Selection and Snake Game Functionality
     const gameButton = document.getElementById('game-button');
     const gameSelectionPanel = document.getElementById('game-selection-panel');
     const snakeGameOption = document.getElementById('snake-game-option');
+    const tictactoeGameOption = document.getElementById('tictactoe-game-option');
     const gameModal = document.getElementById('game-modal');
+    const tictactoeModal = document.getElementById('tictactoe-modal');
     const overlay = document.getElementById('overlay');
     const closeSelectionPanel = document.getElementById('close-selection-panel');
-    const closeModal = document.getElementById('close-modal');
+    const closeModalButtons = document.querySelectorAll('#close-modal');
+
+    gameButton.addEventListener('click', () => {
+      gameSelectionPanel.classList.add('active');
+      overlay.style.display = 'block';
+    });
+
+    closeSelectionPanel.addEventListener('click', () => {
+      gameSelectionPanel.classList.remove('active');
+      overlay.style.display = 'none';
+    });
+
+    closeModalButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        gameModal.classList.remove('active');
+        tictactoeModal.classList.remove('active');
+        overlay.style.display = 'none';
+        stopSnakeGame();
+      });
+    });
+
+    overlay.addEventListener('click', () => {
+      gameSelectionPanel.classList.remove('active');
+      gameModal.classList.remove('active');
+      tictactoeModal.classList.remove('active');
+      overlay.style.display = 'none';
+      stopSnakeGame();
+    });
+
     const startGameBtn = document.getElementById('start-game-btn');
-    const resetGameBtn = document.getElementById('reset-game-btn');
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
     const scoreDisplay = document.getElementById('game-score');
@@ -711,68 +818,32 @@
     const btnLeft = document.getElementById('btn-left');
     const btnRight = document.getElementById('btn-right');
 
-    // Game variables
-    const gridSize = 15;
+    const gridSize = 14;
     const tileSize = canvas.width / gridSize;
-    let snake = [{x: 7, y: 7}]; // Snake initial position
-    let food = {x: 3, y: 3}; // Food initial position
-    let dx = 1; // Initial direction (right)
+    let snake = [{x: 7, y: 7}];
+    let food = {x: 3, y: 3};
+    let dx = 1;
     let dy = 0;
     let score = 0;
     let gameInterval;
-    let gameSpeed = 150; // Milliseconds between moves
+    let gameSpeed = 150;
     let gameRunning = false;
 
-    // Open game selection panel
-    gameButton.addEventListener('click', () => {
-      gameSelectionPanel.classList.add('active');
-      overlay.style.display = 'block';
-    });
-
-    // Close game selection panel
-    closeSelectionPanel.addEventListener('click', () => {
-      gameSelectionPanel.classList.remove('active');
-      overlay.style.display = 'none';
-    });
-
-    // Open snake game when selected
     snakeGameOption.addEventListener('click', () => {
       gameSelectionPanel.classList.remove('active');
       gameModal.classList.add('active');
-      resetGame();
+      resetSnakeGame();
     });
 
-    // Close game modal
-    closeModal.addEventListener('click', () => {
-      gameModal.classList.remove('active');
-      overlay.style.display = 'none';
-      stopGame();
-    });
-
-    overlay.addEventListener('click', () => {
-      gameSelectionPanel.classList.remove('active');
-      gameModal.classList.remove('active');
-      overlay.style.display = 'none';
-      stopGame();
-    });
-
-    // Start/restart game
     startGameBtn.addEventListener('click', () => {
       if (gameRunning) {
-        stopGame();
-        resetGame();
+        stopSnakeGame();
+        resetSnakeGame();
       }
-      startGame();
+      startSnakeGame();
     });
 
-    // Reset game button
-    resetGameBtn.addEventListener('click', () => {
-      stopGame();
-      resetGame();
-    });
-
-    // Game functions
-    function resetGame() {
+    function resetSnakeGame() {
       snake = [{x: 7, y: 7}];
       generateFood();
       dx = 1;
@@ -781,10 +852,10 @@
       scoreDisplay.textContent = `Score: ${score}`;
       startGameBtn.textContent = 'Start Game';
       gameRunning = false;
-      drawGame();
+      drawSnakeGame();
     }
 
-    function startGame() {
+    function startSnakeGame() {
       if (!gameRunning) {
         gameRunning = true;
         startGameBtn.textContent = 'Restart';
@@ -792,7 +863,7 @@
       }
     }
 
-    function stopGame() {
+    function stopSnakeGame() {
       if (gameRunning) {
         gameRunning = false;
         clearInterval(gameInterval);
@@ -800,26 +871,22 @@
     }
 
     function generateFood() {
-      // Generate random position for food
       food = {
         x: Math.floor(Math.random() * gridSize),
         y: Math.floor(Math.random() * gridSize)
       };
       
-      // Make sure food doesn't appear on snake
       for (let segment of snake) {
         if (segment.x === food.x && segment.y === food.y) {
-          generateFood(); // Try again
+          generateFood();
           break;
         }
       }
     }
 
     function moveSnake() {
-      // Create new head in the direction of movement
       const head = {x: snake[0].x + dx, y: snake[0].y + dy};
       
-      // Handle wall wrapping
       if (head.x < 0) {
         head.x = gridSize - 1;
       } else if (head.x >= gridSize) {
@@ -832,65 +899,56 @@
         head.y = 0;
       }
       
-      // Check for collisions with self
       for (let i = 0; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
-          gameOver();
+          snakeGameOver();
           return;
         }
       }
       
-      // Add new head to the beginning of snake array
       snake.unshift(head);
       
-      // Check if snake ate food
       if (head.x === food.x && head.y === food.y) {
         score += 10;
         scoreDisplay.textContent = `Score: ${score}`;
         generateFood();
         
-        // Speed up the game slightly every time food is eaten
         if (gameSpeed > 60) {
           clearInterval(gameInterval);
           gameSpeed -= 5;
           gameInterval = setInterval(moveSnake, gameSpeed);
         }
       } else {
-        // Remove tail if no food was eaten
         snake.pop();
       }
       
-      drawGame();
+      drawSnakeGame();
     }
 
-    function gameOver() {
-      stopGame();
+    function snakeGameOver() {
+      stopSnakeGame();
       startGameBtn.textContent = 'Try Again';
       ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = '20px Arial';
+      ctx.font = '18px Arial';
       ctx.textAlign = 'center';
       ctx.fillText('Game Over!', canvas.width/2, canvas.height/2);
     }
 
-    function drawGame() {
-      // Clear canvas
+    function drawSnakeGame() {
       ctx.fillStyle = '#111';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Draw snake
       snake.forEach((segment, index) => {
         ctx.fillStyle = index === 0 ? '#00ff00' : '#00cc00';
         ctx.fillRect(segment.x * tileSize, segment.y * tileSize, tileSize - 1, tileSize - 1);
       });
       
-      // Draw food
       ctx.fillStyle = '#ff0000';
       ctx.fillRect(food.x * tileSize, food.y * tileSize, tileSize - 1, tileSize - 1);
     }
 
-    // Keyboard controls
     document.addEventListener('keydown', (e) => {
       if (!gameRunning) return;
       
@@ -922,7 +980,6 @@
       }
     });
 
-    // Mobile controls
     btnUp.addEventListener('click', () => {
       if (gameRunning && dy === 0) {
         dx = 0;
@@ -951,8 +1008,104 @@
       }
     });
 
-    // Initial draw
-    drawGame();
+    drawSnakeGame();
+
+    const tictactoeBoard = document.getElementById('tictactoe-board');
+    const tictactoeResetBtn = document.getElementById('tictactoe-reset-btn');
+    const tictactoeScoreDisplay = document.getElementById('tictactoe-modal').querySelector('#game-score');
+    let board = ['', '', '', '', '', '', '', '', ''];
+    let playerScore = 0;
+    let botScore = 0;
+    let gameActive = true;
+
+    tictactoeGameOption.addEventListener('click', () => {
+      gameSelectionPanel.classList.remove('active');
+      tictactoeModal.classList.add('active');
+      resetTicTacToe();
+    });
+
+    function initTicTacToeBoard() {
+      tictactoeBoard.innerHTML = '';
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('tictactoe-cell');
+        cell.dataset.index = i;
+        cell.addEventListener('click', () => handleCellClick(i));
+        tictactoeBoard.appendChild(cell);
+      }
+    }
+
+    function handleCellClick(index) {
+      if (board[index] === '' && gameActive) {
+        board[index] = 'X';
+        updateTicTacToeBoard();
+        if (checkWin('X')) {
+          playerScore++;
+          tictactoeScoreDisplay.textContent = `Player: ${playerScore} | Bot: ${botScore}`;
+          alert('You win!');
+          gameActive = false;
+          return;
+        }
+        if (board.every(cell => cell !== '')) {
+          alert('Draw!');
+          gameActive = false;
+          return;
+        }
+        botMove();
+      }
+    }
+
+    function botMove() {
+      let emptyCells = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
+      if (emptyCells.length > 0 && gameActive) {
+        const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        board[randomIndex] = 'O';
+        updateTicTacToeBoard();
+        if (checkWin('O')) {
+          botScore++;
+          tictactoeScoreDisplay.textContent = `Player: ${playerScore} | Bot: ${botScore}`;
+          alert('Bot wins!');
+          gameActive = false;
+        } else if (board.every(cell => cell !== '')) {
+          alert('Draw!');
+          gameActive = false;
+        }
+      }
+    }
+
+    function checkWin(player) {
+      const winConditions = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+      return winConditions.some(condition =>
+        condition.every(index => board[index] === player)
+      );
+    }
+
+    function updateTicTacToeBoard() {
+      const cells = tictactoeBoard.querySelectorAll('.tictactoe-cell');
+      cells.forEach((cell, index) => {
+        cell.textContent = board[index];
+        if (board[index] !== '') {
+          cell.classList.add('disabled');
+        } else {
+          cell.classList.remove('disabled');
+        }
+      });
+    }
+
+    function resetTicTacToe() {
+      board = ['', '', '', '', '', '', '', '', ''];
+      gameActive = true;
+      updateTicTacToeBoard();
+    }
+
+    tictactoeResetBtn.addEventListener('click', resetTicTacToe);
+
+    initTicTacToeBoard();
+    tictactoeScoreDisplay.textContent = `Player: ${playerScore} | Bot: ${botScore}`;
   </script>
 </body>
 </html>
